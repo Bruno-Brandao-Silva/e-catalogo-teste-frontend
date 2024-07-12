@@ -1,0 +1,8 @@
+.container {
+    width: 596px;
+    height: calc(100vh - 4px);
+    margin: 0px auto;
+    border: 2px solid rgb(27, 27, 27);
+    background-color: white;
+    overflow: hidden;
+}
