@@ -6,8 +6,8 @@ declare global {
         descricao: string
         preco: number
         imagem: string
-        categoria: string[]
-        subcategoria: string[]
+        categorias: string[]
+        subcategorias: string[]
         cores: string[]
         tamanhos: {
             tamanho: string
