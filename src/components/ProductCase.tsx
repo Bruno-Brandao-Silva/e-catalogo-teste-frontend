@@ -1,9 +1,17 @@
+import { useEffect, useState } from 'react';
+import { useCart } from '../contexts/Cart.Hook';
 import './ProductCase.css';
 
 export default function ProductCase(product: Product) {
+    const { addItemToCart, removeItemFromCart, cartItems } = useCart();
+    const [onCart, setOnCart] = useState(false)
+    useEffect(() => {
+        setOnCart(cartItems.includes(product.id))
+    }, [cartItems, product.id])
     return (
-        <div key={product.id} className="product-case" onClick={() => { }}>
-            <div className="case-header">
+        <div key={product.id} className="product-case"
+            onClick={() => onCart ? removeItemFromCart(product.id) : addItemToCart(product.id)}>
+            <div className={onCart ? "case-header selected" : "case-header"}>
                 <span>
                     <p>R$</p>
                     <h3>

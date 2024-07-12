@@ -1,14 +1,11 @@
 import { createContext, ReactNode, useContext } from 'react';
 
-export interface CartItem {
-  id: number;
-  name: string;
-}
 
 export interface CartContextType {
-  cartItems: CartItem[];
-  addItemToCart: (item: CartItem) => void;
+  cartItems: number[];
+  addItemToCart: (item: number) => void;
   removeItemFromCart: (itemId: number) => void;
+  removeAllFromCart: () => void;
 }
 
 export interface CartProviderProps {
