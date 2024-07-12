@@ -83,11 +83,11 @@ export default function ProductList() {
             </div>
             <button className='tools-button' onClick={() => {
                 showProducts.forEach(product => {
-                    addItemToCart(product.id)
+                    addItemToCart({ index: cartItems.length, product, quantity: 0 })
                 })
             }}>Selecionar categoria completa</button>
             <div className={`showroom-${columns}`}>
-                {selectedToggle ? allProducts.map((product, index) => cartItems.includes(product.id) && <ProductCase {...product} key={index} />) : showProducts.map((product, index) =>
+                {selectedToggle ? allProducts.map((product, index) => cartItems.find(item => item.product.id === product.id) != undefined && <ProductCase {...product} key={index} />) : showProducts.map((product, index) =>
                     <ProductCase {...product} key={index} />
                 )}
             </div>

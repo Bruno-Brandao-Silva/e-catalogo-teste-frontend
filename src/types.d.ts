@@ -10,7 +10,7 @@ declare global {
         subcategorias: string[]
         cores: string[]
         tamanhos: {
-            tamanho: string
+            nome: string
             quantidade: number
         }[]
     }

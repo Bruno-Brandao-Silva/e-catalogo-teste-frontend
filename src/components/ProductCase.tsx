@@ -6,11 +6,11 @@ export default function ProductCase(product: Product) {
     const { addItemToCart, removeItemFromCart, cartItems } = useCart();
     const [onCart, setOnCart] = useState(false)
     useEffect(() => {
-        setOnCart(cartItems.includes(product.id))
+        setOnCart(cartItems.find(item => item.product.id === product.id) != undefined)
     }, [cartItems, product.id])
     return (
         <div key={product.id} className="product-case"
-            onClick={() => onCart ? removeItemFromCart(product.id) : addItemToCart(product.id)}>
+            onClick={() => onCart ? removeItemFromCart(product.id) : addItemToCart({ index: cartItems.length, product, quantity: 0 })}>
             <div className={onCart ? "case-header selected" : "case-header"}>
                 <span>
                     <p>R$</p>
