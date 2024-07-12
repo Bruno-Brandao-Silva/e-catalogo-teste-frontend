@@ -7,6 +7,8 @@
     flex-direction: column;
     -webkit-user-drag: none;
     justify-content: space-between;
+    cursor: pointer;
+    overflow: hidden;
 }
 .product-case *{
     -webkit-user-drag: none;
@@ -28,13 +30,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 2px;
     border-bottom: 1px solid #e0e0e0;
     background-color: #b6c8d1;
     height: 20px;
-    /* background-color: #008000 */
 }
-
+.selected {
+    background-color: #008000;
+}
+.selected *{
+    color: #f9f9f9 !important;
+}
 .case-header>span {
     display: flex;
     justify-content: center;
