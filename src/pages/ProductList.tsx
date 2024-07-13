@@ -6,6 +6,8 @@ import axios from 'axios'
 import ProductCase from '../components/ProductCase'
 import { useNavigate } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL)
 
 export default function ProductList() {
     const { addItemToCart, removeAllFromCart, cartItems } = useCart()
@@ -20,23 +22,23 @@ export default function ProductList() {
 
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:3000/produtos/page/1')
+        axios.get(`${API_URL}/produtos/page/1`)
             .then(response => {
                 const produtos = response.data as Product[];
                 setAllProducts(produtos);
-                axios.get('http://localhost:3000/produtos/page/2')
+                axios.get(`${API_URL}/produtos/page/2`)
                     .then(_response => {
                         const _produtos = _response.data as Product[]
                         setAllProducts(produtos.concat(_produtos))
                     })
 
             })
-        axios.get('http://localhost:3000/categorias')
+        axios.get(`${API_URL}/categorias`)
             .then(response => {
                 const categorias = response.data as string[]
                 setCategories(categorias);
             })
-        axios.get('http://localhost:3000/subcategorias')
+        axios.get(`${API_URL}/subcategorias`)
             .then(response => {
                 const subcategorias = response.data as string[]
                 setSubCategories(subcategorias)

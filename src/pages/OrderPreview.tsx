@@ -5,6 +5,8 @@ import './OrderPreview.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function OrderPreview() {
     const navigate = useNavigate();
     const { cartItems, } = useCart()
@@ -50,7 +52,7 @@ export default function OrderPreview() {
                     <button onClick={() => {
                         const _id = Number(searchInput)
                         if (isNaN(_id)) return
-                        axios.get(`http://localhost:3000/produtos/id/${_id}`)
+                        axios.get(`${API_URL}/produtos/id/${_id}`)
                         .then(response => {
                             const _product = response.data as Product
                             if (_product) {
