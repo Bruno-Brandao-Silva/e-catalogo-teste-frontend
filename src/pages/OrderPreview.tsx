@@ -21,6 +21,8 @@ export default function OrderPreview() {
             navigate('/')
     }, [cartItems, navigate])
 
+    // Ideal seria guardar cartItems em localStorage
+    if (cartItems.length === 0) return <></>
 
     return (
         <Container>
@@ -125,7 +127,7 @@ export default function OrderPreview() {
                 <div className="product-info">
                     {cartItems[currentProductIndex].product && <h3>{cartItems[currentProductIndex].product.nome}</h3>}
                     {cartItems[currentProductIndex].product && <h3>{`REF: ${cartItems[currentProductIndex].product.id}`}</h3>}
-                    {cartItems[currentProductIndex].product && <p>{`R$ `}<h3>{cartItems[currentProductIndex].product.preco.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3></p>}
+                    {cartItems[currentProductIndex].product && <span><p>{`R$ `}</p><h3>{cartItems[currentProductIndex].product.preco.toLocaleString('pt-br', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3></span>}
                 </div>
                 <div className="quantity-controller">
                     <div>

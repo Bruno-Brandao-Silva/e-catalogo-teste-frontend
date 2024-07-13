@@ -170,7 +170,15 @@
     font-family: Roboto;
 }
 
-.product-info>p {
+.product-info>span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.product-info>span>p {
     display: flex;
     align-items: baseline;
     font-size: 14px;
