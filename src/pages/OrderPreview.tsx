@@ -3,6 +3,7 @@ import Container from '../components/Container'
 import { useCart } from '../contexts/Cart.Hook'
 import './OrderPreview.css'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function OrderPreview() {
     const navigate = useNavigate();
@@ -49,11 +50,22 @@ export default function OrderPreview() {
                     <button onClick={() => {
                         const _id = Number(searchInput)
                         if (isNaN(_id)) return
-                        const _item = cartItems.find(item => item.product.id === _id)
-                        if (_item) {
-                            setCurrentProductIndex(_item.index)
-                            setModalSearch(false)
-                        }
+                        axios.get(`http://localhost:3000/produtos/id/${_id}`)
+                        .then(response => {
+                            const _product = response.data as Product
+                            if (_product) {
+                                const _item = cartItems.find(item => item.product.id === _id)
+                                if (_item) {
+                                    setCurrentProductIndex(_item.index)
+                                    setModalSearch(false)
+                                }else{
+                                    cartItems.push({product: _product, quantity: 0, index: cartItems.length})
+                                    setCurrentProductIndex(cartItems.length - 1)
+                                    setModalSearch(false)
+                                
+                                }
+                            }
+                        });
                     }}>Buscar</button>
                 </div>
             </div> : <></>}
