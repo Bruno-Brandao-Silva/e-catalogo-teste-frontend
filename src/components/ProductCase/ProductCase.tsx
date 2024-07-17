@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useCart } from '../contexts/Cart.Hook';
+import { useCart } from '../../contexts/Cart';
 import './ProductCase.css';
 
 export default function ProductCase(product: Product) {

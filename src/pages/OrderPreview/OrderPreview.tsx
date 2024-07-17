@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react'
-import Container from '../components/Container'
-import { useCart } from '../contexts/Cart.Hook'
+import Container from '../../components/container/Container'
+import { useCart } from '../../contexts/Cart'
 import './OrderPreview.css'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const API_URL = import.meta.env.VITE_API_URL;
+import ModalInfo from './components/ModalInfo/ModalInfo'
+import ModalSearch from './components/ModalSearch/ModalSearch'
+import Size from './components/Size/Size'
 
 export default function OrderPreview() {
     const navigate = useNavigate();
     const { cartItems, } = useCart()
-
     const [, reactRefresh] = useState({})
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(0)
     const [modalInfo, setModalInfo] = useState(false);
     const [modalSearch, setModalSearch] = useState(false);
-    const [searchInput, setSearchInput] = useState('')
     useEffect(() => {
         if (cartItems.length === 0)
             navigate('/')
@@ -26,55 +24,9 @@ export default function OrderPreview() {
 
     return (
         <Container>
-            {modalInfo ? <div className='modal'>
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h1>Informações</h1>
-                        <button
-                            onClick={() => (setModalInfo(false))}
-                            type="button">X</button>
-                    </div>
-                    <h2><strong>Nome do produto: </strong>{cartItems[currentProductIndex].product.nome}</h2>
-                    <h2><strong>Referência: </strong>{cartItems[currentProductIndex].product.id}</h2>
-                    <h2><strong>Cores: </strong>{cartItems[currentProductIndex].product.cores.join(', ')}</h2>
-                    <h2><strong>Marca: </strong>{cartItems[currentProductIndex].product.marca}</h2>
-                    <h2><strong>Categoria: </strong>{cartItems[currentProductIndex].product.categorias[0]}</h2>
-                    <h2><strong>Descrição: </strong>{cartItems[currentProductIndex].product.descricao}</h2>
-                </div>
-            </div> : <></>}
-            {modalSearch ? <div className='modal'>
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h1>BUSCAR POR REF</h1>
-                        <button
-                            onClick={() => (setModalSearch(false))}
-                            type="button">X</button>
-                    </div>
-                    <input type="text" placeholder='000' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
-                    <button onClick={() => {
-                        const _id = Number(searchInput)
-                        if (isNaN(_id)) return
-                        axios.get(`${API_URL}/produtos/id/${_id}`)
-                        .then(response => {
-                            const _product = response.data as Product
-                            if (_product) {
-                                const _item = cartItems.find(item => item.product.id === _id)
-                                if (_item) {
-                                    setCurrentProductIndex(_item.index)
-                                    setModalSearch(false)
-                                }else{
-                                    cartItems.push({product: _product, quantity: 0, index: cartItems.length})
-                                    setCurrentProductIndex(cartItems.length - 1)
-                                    setModalSearch(false)
-                                
-                                }
-                            }
-                        });
-                    }}>Buscar</button>
-                </div>
-            </div> : <></>}
-            {modalSearch ? <div>
-                asd</div> : <></>}
+            {modalInfo ? <ModalInfo product={cartItems[currentProductIndex].product} setModalInfo={setModalInfo} /> : <></>}
+            {modalSearch ? <ModalSearch setModalSearch={setModalSearch} setCurrentProductIndex={setCurrentProductIndex} /> : <></>}
+
             <header className='order-preview-header'>
                 <button onClick={() => navigate('/')}>{'<'}</button>
                 <span>
@@ -158,7 +110,7 @@ export default function OrderPreview() {
             <footer className='order-preview-footer'>
                 <span>
                     {cartItems[currentProductIndex].product && cartItems[currentProductIndex].product.tamanhos.map((item, index) =>
-                        <SizeComponent key={index} nome={item.nome} quantidade={item.quantidade} />
+                        <Size key={index} nome={item.nome} quantidade={item.quantidade} />
                     )}
                 </span>
                 <p>=</p>
@@ -171,14 +123,3 @@ export default function OrderPreview() {
     )
 }
 
-interface SizeComponentProps {
-    nome: string,
-    quantidade: number
-}
-
-function SizeComponent(props: SizeComponentProps) {
-    return (<div className='size-component'>
-        <h2>{props.quantidade}</h2>
-        <h3>{props.nome}</h3>
-    </div>)
-}

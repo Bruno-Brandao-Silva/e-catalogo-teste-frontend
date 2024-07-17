@@ -1,9 +1,9 @@
 import './ProductList.css'
-import Container from '../components/Container'
-import { useCart } from '../contexts/Cart.Hook'
+import Container from '../../components/container/Container'
+import { useCart } from '../../contexts/Cart'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import ProductCase from '../components/ProductCase'
+import ProductCase from '../../components/ProductCase/ProductCase'
 import { useNavigate } from 'react-router-dom'
 
 const API_URL = import.meta.env.VITE_API_URL;

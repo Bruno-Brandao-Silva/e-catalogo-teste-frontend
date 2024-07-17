@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cartItem, CartContext, CartProviderProps } from './Cart.Hook';
+import { cartItem, CartContext, CartProviderProps } from '../contexts/Cart';
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<cartItem[]>([]);

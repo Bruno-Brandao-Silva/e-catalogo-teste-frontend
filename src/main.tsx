@@ -5,9 +5,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import ProductList from './pages/ProductList';
-import OrderPreview from './pages/OrderPreview';
-import { CartProvider } from './contexts/Cart.Provider';
+import ProductList from './pages/ProductList/ProductList';
+import OrderPreview from './pages/OrderPreview/OrderPreview';
+import { CartProvider } from './provider/Cart';
 
 const router = createBrowserRouter([
   {
